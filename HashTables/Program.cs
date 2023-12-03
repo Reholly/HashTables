@@ -19,7 +19,7 @@ var list = new List<SmallTable> { divideTable, mulTable, xorTable };
 int count = 0;
 foreach (var i in list)
 {
-    Console.WriteLine(count++);
+    Console.WriteLine($"Таблица №{++count}");
     Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
     Console.WriteLine($"Длина самой большой цепочки: {i.GetBiggestChainCount()}. ");
     Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. ");
@@ -37,6 +37,6 @@ var bigTablesList = new List<BigTable> {bigTableLinear, bigTableQuadratic, bigTa
 
 foreach (var i in bigTablesList)
 {
-    Console.WriteLine($"Таблица №{count++}");
+    Console.WriteLine($"Таблица №{++count}");
     Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
 }
