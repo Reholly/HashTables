@@ -4,6 +4,8 @@ public class QuadraticMethodHashFunction : IBiHashFunction
 {
     public int Hash(int key, int attempt)
     {
-        return (key + attempt * attempt) % 10000;
+        key = Math.Abs(key);
+        int helperConst = 13;
+        return (key + attempt * attempt * helperConst ) % 10000;
     }
 }

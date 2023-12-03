@@ -24,9 +24,10 @@ public class BigTable
             return;
         }
         
-        while (_items[index] is not null)
+        while (_items[index] is not null && attempt < 10000)
         {
             index = _simpleHashFunction.Hash(index, ++attempt); //(index + 1) % 10000;
+            //Console.WriteLine($"Добавление ключа: {key}");
         }
 
         _items[index] = new KeyValuePair(key, value);
@@ -83,5 +84,26 @@ public class BigTable
         {
             Add(pairs[i].Key, pairs[i].Value);
         }
+    }
+
+    public int BiggestCluster()
+    {
+        int maxCluster = 0;
+        int currentCluster = 0;
+
+        for (int i = 0; i < _items.Length; i++)
+        {
+            if (_items[i] is not null)
+            {
+                currentCluster++;
+            }
+            else
+            {
+                maxCluster = Math.Max(maxCluster, currentCluster);
+                currentCluster = 0;
+            }
+        }
+
+        return maxCluster;
     }
 }

@@ -8,6 +8,7 @@ public class DoubleHashMethodFunction : IBiHashFunction
         
         //Первая хэш функция метода деления, потом прибавляем к ее результату хэш-функцию
         // линейного метода исследования.
+        key = Math.Abs(key);
         return (key % 10000 + attempt * (key + attempt) % 10000) % 10000;
     }
 }

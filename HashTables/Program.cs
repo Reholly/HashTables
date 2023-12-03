@@ -6,7 +6,7 @@ using HashTables.Services;
 RandomFiller randomFiller = new RandomFiller();
 
 
-var keyValuePairs = randomFiller.RandomKeyValuePairs(100000, -10000, 100000);
+var keyValuePairs = randomFiller.RandomKeyValuePairs(10000, -10000, 10000);
 
 var divideTable = new SmallTable(new DivideMethodSimpleHashFunction());
 var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
@@ -27,9 +27,16 @@ foreach (var i in list)
 
 var bigTableLinear = new BigTable(new LinearMethodHashFunction());
 var bigTableQuadratic = new BigTable(new QuadraticMethodHashFunction());
-bigTableLinear.Add(1, 10);
-bigTableLinear.Add(2, 15);
-bigTableLinear.Add(12, 13);
-bigTableLinear.Remove(2);
-Console.WriteLine(bigTableLinear.Get(12));
-bigTableLinear.Print();
+var bigTableDoubleHash = new BigTable(new DoubleHashMethodFunction());
+
+bigTableLinear.AddRange(keyValuePairs);
+bigTableQuadratic.AddRange(keyValuePairs);
+bigTableDoubleHash.AddRange(keyValuePairs);
+
+var bigTablesList = new List<BigTable> {bigTableLinear, bigTableQuadratic, bigTableDoubleHash};
+
+foreach (var i in bigTablesList)
+{
+    Console.WriteLine($"Таблица №{count++}");
+    Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
+}
