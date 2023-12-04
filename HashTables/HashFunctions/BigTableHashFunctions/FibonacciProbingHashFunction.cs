@@ -10,6 +10,6 @@ public class FibonacciProbingHashFunction : IBiHashFunction
     /// </summary>
     public int Hash(int key, int attempt)
     {
-        return (key + attempt * Fibonacci) % 10000;
+        return Math.Abs(key + attempt * Fibonacci) % 10000;
     }
 }

@@ -6,7 +6,8 @@ public class XorSimpleHashFunction : ISimpleHashFunction
     {
         int hash = key;
         hash = hash ^ (hash >> 20) ^ (hash >> 12);
-        
-        return hash ^ (hash >> 7) ^ (hash >> 4);
+
+        hash = hash ^ (hash >> 7) ^ (hash >> 4);
+        return Math.Abs(hash) % 1000;
     }
 }

@@ -9,6 +9,6 @@ public class XorHashFunction : IBiHashFunction
     /// </summary>
     public int Hash(int key, int attempt)
     {
-        return (key ^ attempt) % 10000;
+        return Math.Abs(key ^ attempt) % 10000;
     }
 }

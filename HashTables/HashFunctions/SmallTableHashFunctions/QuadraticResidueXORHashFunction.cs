@@ -17,6 +17,6 @@ public class QuadraticResidueXorHashFunction : ISimpleHashFunction
         
         hash ^= key;
 
-        return hash % 1000;
+        return Math.Abs(hash) % 1000;
     }
 }
