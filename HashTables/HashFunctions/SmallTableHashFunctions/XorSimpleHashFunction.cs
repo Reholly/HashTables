@@ -1,6 +1,6 @@
 namespace HashTables.HashFunctions.SmallTableHashFunctions;
 
-public class RjXorSimpleHashFunction : ISimpleHashFunction
+public class XorSimpleHashFunction : ISimpleHashFunction
 {
     public int Hash(int key)
     {
