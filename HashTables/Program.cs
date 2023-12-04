@@ -12,16 +12,19 @@ var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
 var xorTable = new SmallTable(new XorSimpleHashFunction());
 var quadraticTable = new SmallTable(new QuadraticResidueXorHashFunction());
 var digitSumTable = new SmallTable(new DigitSumHashFunction());
+var irrationalSinTable = new SmallTable(new IrrationalSinHash());
 
 divideTable.AddRange(keyValuePairs);
 mulTable.AddRange(keyValuePairs);
 xorTable.AddRange(keyValuePairs);
 quadraticTable.AddRange(keyValuePairs);
 digitSumTable.AddRange(keyValuePairs);
+irrationalSinTable.AddRange(keyValuePairs);
+    
 
 var list = new List<SmallTable>
 {
-    divideTable, mulTable, xorTable, quadraticTable, digitSumTable
+    divideTable, mulTable, xorTable, quadraticTable, digitSumTable, irrationalSinTable
 };
 
 var count = 0;
@@ -30,7 +33,7 @@ foreach (SmallTable i in list)
     Console.WriteLine($"Таблица №{++count}");
     Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
     Console.WriteLine($"Длина самой большой цепочки: {i.GetBiggestChainCount()}. ");
-    Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. ");
+    Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. \n");
 }
 
 var bigTableLinear = new BigTable(new LinearMethodHashFunction());
@@ -53,5 +56,5 @@ var bigTablesList = new List<BigTable>
 foreach (BigTable i in bigTablesList)
 {
     Console.WriteLine($"Таблица №{++count}");
-    Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
+    Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. \n");
 }
