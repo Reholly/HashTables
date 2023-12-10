@@ -27,7 +27,6 @@ public class BigTable
         while (_items[index] is not null && attempt < 10000)
         {
             index = _simpleHashFunction.Hash(index, ++attempt); //(index + 1) % 10000;
-            //Console.WriteLine($"Добавление ключа: {key}");
         }
 
         _items[index] = new KeyValuePair(key, value);
@@ -61,6 +60,7 @@ public class BigTable
             if (_items[index]?.Key.Equals(key) == true)
             {
                 _items[index] = null;
+                return;
             }
             
             index = _simpleHashFunction.Hash(index, ++attempt);

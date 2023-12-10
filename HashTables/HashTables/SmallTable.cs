@@ -20,7 +20,9 @@ public class SmallTable
 
         if (_buckets[index] is null)
             _buckets[index] = new Models.LinkedList<KeyValuePair>();
-        
+        /*if(Get(key) is null)
+          _buckets[index].AppendToEnd(new KeyValuePair(key, value));
+          */
         _buckets[index].AppendToEnd(new KeyValuePair(key, value));
     }
 

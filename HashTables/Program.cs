@@ -58,3 +58,4 @@ foreach (BigTable i in bigTablesList)
     Console.WriteLine($"Таблица №{++count}");
     Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. \n");
 }
+bigTableLinear.Remove(100);

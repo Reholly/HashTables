@@ -5,7 +5,6 @@ public class DoubleHashMethodFunction : IBiHashFunction
     public int Hash(int key, int attempt)
     {
         //h(k,i)=(h1(k)+i⋅h2(k))mod10000
-        
         //Первая хэш функция метода деления, потом прибавляем к ее результату хэш-функцию
         // линейного метода исследования.
         key = Math.Abs(key);
