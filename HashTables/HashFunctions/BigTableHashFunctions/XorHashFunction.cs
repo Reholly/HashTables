@@ -2,6 +2,8 @@
 
 public class XorHashFunction : IBiHashFunction
 {
+    public string Title { get; } = "Хэш-функция метод XOR";
+
     /// <summary>
     /// Эта хеш-функция использует операцию XOR между ключом и номером попытки.
     /// XOR обеспечивает быстродействие, а также дополнительную случайность

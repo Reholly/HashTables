@@ -2,60 +2,106 @@
 using HashTables.HashFunctions.SmallTableHashFunctions;
 using HashTables.HashTables;
 using HashTables.Services;
+using KeyValuePair = HashTables.Models.KeyValuePair;
 
-var randomFiller = new RandomFiller();
+while (true)
+{
+    Console.WriteLine("Добро пожаловать, это Лабораторная Работа №6 по Теме: Хэш-таблицы.");
+    Console.WriteLine("Пользователь вбивает нужное количество генерируемых уникальных пар Ключ-Значение.");
+    Console.WriteLine("После этого проводится генерация элементов, которые позже вставляются в малую хэш-таблицу ");
+    Console.WriteLine("и в большую. Затем получаются нужные замеры из задания лаборотарной работы.");
+    try
+    
+    {
+        Console.WriteLine("Введите число пар для малой хэш-таблицы: ");
+        int smallCount = int.Parse(Console.ReadLine());
+        Console.WriteLine("Введите число пар для большой хэш-таблицы: ");
+        int bigCount = int.Parse(Console.ReadLine());
+        if (smallCount <= 0 || bigCount <= 0)
+            throw new InvalidOperationException();
+        var randomFiller = new RandomFiller();
 
-var keyValuePairs = randomFiller.RandomKeyValuePairs(10000, -10000, 10000);
-
-var divideTable = new SmallTable(new DivideMethodSimpleHashFunction());
-var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
-var xorTable = new SmallTable(new XorSimpleHashFunction());
-var quadraticTable = new SmallTable(new QuadraticResidueXorHashFunction());
-var digitSumTable = new SmallTable(new DigitSumHashFunction());
-var irrationalSinTable = new SmallTable(new IrrationalSinHash());
-
-divideTable.AddRange(keyValuePairs);
-mulTable.AddRange(keyValuePairs);
-xorTable.AddRange(keyValuePairs);
-quadraticTable.AddRange(keyValuePairs);
-digitSumTable.AddRange(keyValuePairs);
-irrationalSinTable.AddRange(keyValuePairs);
+        var smallPairs = randomFiller.RandomKeyValuePairs(smallCount, int.MinValue, int.MaxValue);
+        var bigPairs = randomFiller.RandomKeyValuePairs(bigCount, -10000, 10000);
+        
+        var bigTables = GetAllBigTables(bigPairs);
+        var smallTables = GetAllSmallTables(smallPairs);
+        
+        PrintSmallTablesData(smallTables);
+        PrintBigTablesData(bigTables);
+        
+        Console.WriteLine(new string('=', 20));
+        Console.WriteLine("Нажмите Enter, чтобы вернуться в самое начало.");
+        Console.ReadKey();
+        Console.Clear();
+    }
+    catch (Exception)
+    {
+        Console.Clear();
+        Console.WriteLine("Ошибка в преобразовании числа, программа начата заново.");
+    }
     
 
-var list = new List<SmallTable>
-{
-    divideTable, mulTable, xorTable, quadraticTable, digitSumTable, irrationalSinTable
-};
-
-var count = 0;
-foreach (SmallTable i in list)
-{
-    Console.WriteLine($"Таблица №{++count}");
-    Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
-    Console.WriteLine($"Длина самой большой цепочки: {i.GetBiggestChainCount()}. ");
-    Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. \n");
 }
 
-var bigTableLinear = new BigTable(new LinearMethodHashFunction());
-var bigTableQuadratic = new BigTable(new QuadraticMethodHashFunction());
-var bigTableDoubleHash = new BigTable(new DoubleHashMethodFunction());
-var bigTableXor = new BigTable(new XorHashFunction());
-var bigTableFibonacci = new BigTable(new FibonacciProbingHashFunction());
-
-bigTableLinear.AddRange(keyValuePairs);
-bigTableQuadratic.AddRange(keyValuePairs);
-bigTableDoubleHash.AddRange(keyValuePairs);
-bigTableXor.AddRange(keyValuePairs);
-bigTableFibonacci.AddRange(keyValuePairs);
-
-var bigTablesList = new List<BigTable>
+List<SmallTable> GetAllSmallTables(KeyValuePair[] pairs)
 {
-    bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci
-};
+    var divTable = new SmallTable(new DivideMethodSimpleHashFunction());
+    var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
+    var xorTable = new SmallTable(new XorSimpleHashFunction());
+    var quadraticTable = new SmallTable(new QuadraticResidueXorHashFunction());
+    var digitSumTable = new SmallTable(new DigitSumHashFunction());
+    var irrationalSinTable = new SmallTable(new IrrationalSinHash());
 
-foreach (BigTable i in bigTablesList)
-{
-    Console.WriteLine($"Таблица №{++count}");
-    Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. \n");
+    divTable.AddRange(pairs);
+    mulTable.AddRange(pairs);
+    xorTable.AddRange(pairs);
+    quadraticTable.AddRange(pairs);
+    digitSumTable.AddRange(pairs);
+    irrationalSinTable.AddRange(pairs);
+
+    return new List<SmallTable>
+    {
+        divTable, mulTable, xorTable, quadraticTable, digitSumTable, irrationalSinTable
+    };
 }
-bigTableLinear.Remove(100);
+
+List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
+{
+    var bigTableLinear = new BigTable(new LinearMethodHashFunction());
+    var bigTableQuadratic = new BigTable(new QuadraticMethodHashFunction());
+    var bigTableDoubleHash = new BigTable(new DoubleHashMethodFunction());
+    var bigTableXor = new BigTable(new XorHashFunction());
+    var bigTableFibonacci = new BigTable(new FibonacciProbingHashFunction());
+
+    bigTableLinear.AddRange(pairs);
+    bigTableQuadratic.AddRange(pairs);
+    bigTableDoubleHash.AddRange(pairs);
+    bigTableXor.AddRange(pairs);
+    bigTableFibonacci.AddRange(pairs);
+
+    return new List<BigTable>
+    {
+        bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci
+    };
+}
+
+void PrintSmallTablesData(List<SmallTable> tables)
+{
+    foreach (var i in tables)
+    {
+        Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
+        Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
+        Console.WriteLine($"Длина самой большой цепочки: {i.GetBiggestChainCount()}. ");
+        Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. ");
+    }
+}
+
+void PrintBigTablesData(List<BigTable> tables)
+{
+    foreach (var i in tables)
+    {
+        Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
+        Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
+    }
+}

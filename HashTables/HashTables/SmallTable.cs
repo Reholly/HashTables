@@ -5,6 +5,8 @@ namespace HashTables.HashTables;
 
 public class SmallTable
 {
+    public ISimpleHashFunction HashFunction => _simpleHashFunction;
+    
     private readonly ISimpleHashFunction _simpleHashFunction;
     private readonly Models.LinkedList<KeyValuePair>[] _buckets;
 
@@ -57,7 +59,7 @@ public class SmallTable
                 foreach (var j in i)
                     count += 1;
 
-        return count / 1000;
+        return count / 1000d;
     }
 
     public int GetBiggestChainCount()
@@ -80,21 +82,6 @@ public class SmallTable
                 min = Math.Min(min, (int) i.Length);
         
         return min;
-    }
-    
-    public void PrintTable()
-    {
-        foreach (var i in _buckets)
-        {
-            if (i is not null)
-            {
-                foreach (var j in i)
-                {
-                    Console.Write(j.Data.Key + " : " + j.Data.Value);
-                }
-                Console.WriteLine();
-            }
-        }
     }
 
     public void AddRange(KeyValuePair[] keyValuePairs)

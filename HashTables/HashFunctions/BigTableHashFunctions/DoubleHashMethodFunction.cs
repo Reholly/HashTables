@@ -2,6 +2,8 @@ namespace HashTables.HashFunctions.BigTableHashFunctions;
 
 public class DoubleHashMethodFunction : IBiHashFunction
 {
+    public string Title { get; } = "Хэш-функция метод двойного хэширования";
+
     public int Hash(int key, int attempt)
     {
         //h(k,i)=(h1(k)+i⋅h2(k))mod10000

@@ -2,6 +2,8 @@ namespace HashTables.HashFunctions.SmallTableHashFunctions;
 
 public class MultiplyMethodSimpleHashFunction : ISimpleHashFunction
 {
+    public string Title { get; } = "Хэш-функция метода умножения";
+
     public int Hash(int key)
     {
         double goldenCoefficient = 1.6180339887; //золотое сечение

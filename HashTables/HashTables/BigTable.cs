@@ -5,6 +5,8 @@ namespace HashTables.HashTables;
 
 public class BigTable
 {
+    public IBiHashFunction HashFunction => _simpleHashFunction;
+    
     private readonly IBiHashFunction _simpleHashFunction;
     private readonly KeyValuePair?[] _items;
 
