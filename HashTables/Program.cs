@@ -13,11 +13,11 @@ while (true)
     try
     
     {
-        Console.WriteLine("Введите число пар для малой хэш-таблицы: ");
+        Console.WriteLine("Введите число пар для малой хэш-таблицы: (1 <= 100000)");
         int smallCount = int.Parse(Console.ReadLine());
-        Console.WriteLine("Введите число пар для большой хэш-таблицы: ");
+        Console.WriteLine("Введите число пар для большой хэш-таблицы: (1 <= 10000)");
         int bigCount = int.Parse(Console.ReadLine());
-        if (smallCount <= 0 || bigCount <= 0)
+        if (smallCount <= 0 || bigCount <= 0 || smallCount > 100000 || bigCount > 10000)
             throw new InvalidOperationException();
         var randomFiller = new RandomFiller();
 
@@ -88,6 +88,7 @@ List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
 
 void PrintSmallTablesData(List<SmallTable> tables)
 {
+    Console.WriteLine();
     foreach (var i in tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
@@ -103,5 +104,7 @@ void PrintBigTablesData(List<BigTable> tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
         Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
+        Console.WriteLine();
     }
+    Console.WriteLine();
 }
