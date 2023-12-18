@@ -1,4 +1,4 @@
-﻿using HashTables.HashFunctions.BigTableHashFunctions;
+using HashTables.HashFunctions.BigTableHashFunctions;
 using HashTables.HashFunctions.SmallTableHashFunctions;
 using HashTables.HashTables;
 using HashTables.Services;
