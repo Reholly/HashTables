@@ -2,7 +2,7 @@ namespace HashTables.HashFunctions.SmallTableHashFunctions;
 
 public class XorSimpleHashFunction : ISimpleHashFunction
 {
-    public string Title { get; } = "Хэш-функция метод XOR";
+    public string Title => "Хэш-функция метод XOR";
 
     public int Hash(int key)
     {

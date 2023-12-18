@@ -2,7 +2,7 @@
 
 public class QuadraticResidueXorHashFunction : ISimpleHashFunction
 {
-    public string Title { get; } = "Хэш-функция метод возведения в квадрат, деления по модулю и XOR";
+    public string Title => "Хэш-функция метод возведения в квадрат, деления по модулю и XOR";
 
     /// <summary>
     /// Эта хеш-функция использует квадратичную резидуацию

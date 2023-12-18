@@ -2,7 +2,7 @@ namespace HashTables.HashFunctions.SmallTableHashFunctions;
 
 public class MultiplyMethodSimpleHashFunction : ISimpleHashFunction
 {
-    public string Title { get; } = "Хэш-функция метода умножения";
+    public string Title => "Хэш-функция метода умножения";
 
     public int Hash(int key)
     {

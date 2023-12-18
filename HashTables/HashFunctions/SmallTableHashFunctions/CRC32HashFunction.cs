@@ -9,7 +9,7 @@ public class Crc32HashFunction : ISimpleHashFunction
         GenerateTable();
     }
 
-    public string Title { get; } = "Хэш-функция CRC32";
+    public string Title => "Хэш-функция CRC32";
 
     public int Hash(int key)
     {
