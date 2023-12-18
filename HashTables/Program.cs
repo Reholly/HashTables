@@ -95,6 +95,7 @@ void PrintSmallTablesData(List<SmallTable> tables)
         Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
         Console.WriteLine($"Длина самой большой цепочки: {i.GetBiggestChainCount()}. ");
         Console.WriteLine($"Длина самой маленькой цепочки: {i.GetSmallestChainCount()}. ");
+        Console.WriteLine();
     }
 }
 
