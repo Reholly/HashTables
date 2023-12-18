@@ -2,7 +2,7 @@ namespace HashTables.HashFunctions.BigTableHashFunctions;
 
 public class QuadraticMethodHashFunction : IBiHashFunction
 {
-    public string Title { get; } = "Хэш-функция метод квадратичного исследования";
+    public string Title => "Хэш-функция метод квадратичного исследования";
 
     public int Hash(int key, int attempt)
     {

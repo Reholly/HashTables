@@ -1,4 +1,4 @@
-﻿using HashTables.HashFunctions.BigTableHashFunctions;
+using HashTables.HashFunctions.BigTableHashFunctions;
 using HashTables.HashFunctions.SmallTableHashFunctions;
 using HashTables.HashTables;
 using HashTables.Services;
@@ -10,8 +10,8 @@ while (true)
     Console.WriteLine("Пользователь вбивает нужное количество генерируемых уникальных пар Ключ-Значение.");
     Console.WriteLine("После этого проводится генерация элементов, которые позже вставляются в малую хэш-таблицу ");
     Console.WriteLine("и в большую. Затем получаются нужные замеры из задания лаборотарной работы.");
-    try
     
+    //try
     {
         Console.WriteLine("Введите число пар для малой хэш-таблицы: (1 <= 100000)");
         int smallCount = int.Parse(Console.ReadLine());
@@ -21,11 +21,11 @@ while (true)
             throw new InvalidOperationException();
         var randomFiller = new RandomFiller();
 
-        var smallPairs = randomFiller.RandomKeyValuePairs(smallCount, int.MinValue, int.MaxValue);
-        var bigPairs = randomFiller.RandomKeyValuePairs(bigCount, -10000, 10000);
+        KeyValuePair[] smallPairs = randomFiller.RandomKeyValuePairs(smallCount, int.MinValue, int.MaxValue);
+        KeyValuePair[] bigPairs = randomFiller.RandomKeyValuePairs(bigCount, -10000, 10000);
         
-        var bigTables = GetAllBigTables(bigPairs);
-        var smallTables = GetAllSmallTables(smallPairs);
+        List<BigTable> bigTables = GetAllBigTables(bigPairs);
+        List<SmallTable> smallTables = GetAllSmallTables(smallPairs);
         
         PrintSmallTablesData(smallTables);
         PrintBigTablesData(bigTables);
@@ -35,7 +35,7 @@ while (true)
         Console.ReadKey();
         Console.Clear();
     }
-    catch (Exception)
+    //catch (Exception)
     {
         Console.Clear();
         Console.WriteLine("Ошибка в преобразовании числа, программа начата заново.");
@@ -50,20 +50,20 @@ List<SmallTable> GetAllSmallTables(KeyValuePair[] pairs)
     var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
     var xorTable = new SmallTable(new XorSimpleHashFunction());
     var quadraticTable = new SmallTable(new QuadraticResidueXorHashFunction());
-    var digitSumTable = new SmallTable(new DigitSumHashFunction());
+    //var digitSumTable = new SmallTable(new DigitSumHashFunction());
     var irrationalSinTable = new SmallTable(new IrrationalSinHash());
+    var crc32Table = new SmallTable(new Crc32HashFunction());
 
     divTable.AddRange(pairs);
     mulTable.AddRange(pairs);
     xorTable.AddRange(pairs);
     quadraticTable.AddRange(pairs);
-    digitSumTable.AddRange(pairs);
+    //digitSumTable.AddRange(pairs);
     irrationalSinTable.AddRange(pairs);
+    crc32Table.AddRange(pairs);
+    
 
-    return new List<SmallTable>
-    {
-        divTable, mulTable, xorTable, quadraticTable, digitSumTable, irrationalSinTable
-    };
+    return [divTable, mulTable, xorTable, quadraticTable, /*digitSumTable,*/ irrationalSinTable, crc32Table];
 }
 
 List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
@@ -73,23 +73,22 @@ List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
     var bigTableDoubleHash = new BigTable(new DoubleHashMethodFunction());
     var bigTableXor = new BigTable(new XorHashFunction());
     var bigTableFibonacci = new BigTable(new FibonacciProbingHashFunction());
+    var bigTableXxHash = new BigTable(new XxHashFunction());
 
     bigTableLinear.AddRange(pairs);
     bigTableQuadratic.AddRange(pairs);
     bigTableDoubleHash.AddRange(pairs);
     bigTableXor.AddRange(pairs);
     bigTableFibonacci.AddRange(pairs);
+    bigTableXxHash.AddRange(pairs);
 
-    return new List<BigTable>
-    {
-        bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci
-    };
+    return [bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci, bigTableXxHash];
 }
 
 void PrintSmallTablesData(List<SmallTable> tables)
 {
     Console.WriteLine();
-    foreach (var i in tables)
+    foreach (SmallTable i in tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
         Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
@@ -101,7 +100,7 @@ void PrintSmallTablesData(List<SmallTable> tables)
 
 void PrintBigTablesData(List<BigTable> tables)
 {
-    foreach (var i in tables)
+    foreach (BigTable i in tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
         Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");

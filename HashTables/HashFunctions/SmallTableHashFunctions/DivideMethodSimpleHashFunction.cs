@@ -2,7 +2,7 @@ namespace HashTables.HashFunctions.SmallTableHashFunctions;
 
 public class DivideMethodSimpleHashFunction : ISimpleHashFunction
 {
-    public string Title { get; } = "Хэш-функция метода деления";
+    public string Title => "Хэш-функция метода деления";
 
     public int Hash(int key)
     {

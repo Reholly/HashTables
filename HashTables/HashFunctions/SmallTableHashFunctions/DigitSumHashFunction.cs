@@ -2,7 +2,7 @@
 
 public class DigitSumHashFunction : ISimpleHashFunction
 {
-    public string Title { get; } = "Хэш-функция метода суммирования квадратов разряда и его разряда";
+    public string Title => "Хэш-функция метода суммирования квадратов разряда и его разряда";
 
     /// <summary>
     /// Эта хеш-функция умножает каждую цифру числа на её
