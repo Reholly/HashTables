@@ -9,6 +9,8 @@ public class Crc32HashFunction : ISimpleHashFunction
         GenerateTable();
     }
 
+    public string Title { get; } = "Хэш-функция CRC32";
+
     public int Hash(int key)
     {
         byte[] data = BitConverter.GetBytes(key);

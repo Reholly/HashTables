@@ -10,8 +10,8 @@ while (true)
     Console.WriteLine("Пользователь вбивает нужное количество генерируемых уникальных пар Ключ-Значение.");
     Console.WriteLine("После этого проводится генерация элементов, которые позже вставляются в малую хэш-таблицу ");
     Console.WriteLine("и в большую. Затем получаются нужные замеры из задания лаборотарной работы.");
-    try
     
+    try
     {
         Console.WriteLine("Введите число пар для малой хэш-таблицы: (1 <= 100000)");
         int smallCount = int.Parse(Console.ReadLine());
@@ -50,20 +50,20 @@ List<SmallTable> GetAllSmallTables(KeyValuePair[] pairs)
     var mulTable = new SmallTable(new MultiplyMethodSimpleHashFunction());
     var xorTable = new SmallTable(new XorSimpleHashFunction());
     var quadraticTable = new SmallTable(new QuadraticResidueXorHashFunction());
-    var digitSumTable = new SmallTable(new DigitSumHashFunction());
+    //var digitSumTable = new SmallTable(new DigitSumHashFunction());
     var irrationalSinTable = new SmallTable(new IrrationalSinHash());
+    var crc32Table = new SmallTable(new Crc32HashFunction());
 
     divTable.AddRange(pairs);
     mulTable.AddRange(pairs);
     xorTable.AddRange(pairs);
     quadraticTable.AddRange(pairs);
-    digitSumTable.AddRange(pairs);
+    //digitSumTable.AddRange(pairs);
     irrationalSinTable.AddRange(pairs);
+    crc32Table.AddRange(pairs);
+    
 
-    return new List<SmallTable>
-    {
-        divTable, mulTable, xorTable, quadraticTable, digitSumTable, irrationalSinTable
-    };
+    return [divTable, mulTable, xorTable, quadraticTable, /*digitSumTable,*/ irrationalSinTable, crc32Table];
 }
 
 List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
@@ -89,7 +89,7 @@ List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
 void PrintSmallTablesData(List<SmallTable> tables)
 {
     Console.WriteLine();
-    foreach (var i in tables)
+    foreach (SmallTable i in tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
         Console.WriteLine($"Коэффициент заполнения: {i.GetFillingCoefficient()}. ");
@@ -100,7 +100,7 @@ void PrintSmallTablesData(List<SmallTable> tables)
 
 void PrintBigTablesData(List<BigTable> tables)
 {
-    foreach (var i in tables)
+    foreach (BigTable i in tables)
     {
         Console.WriteLine($"Таблица. {i.HashFunction.Title}.");
         Console.WriteLine($"Длина наибольшего кластера: {i.BiggestCluster()}. ");
