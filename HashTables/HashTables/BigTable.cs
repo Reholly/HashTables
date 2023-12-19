@@ -9,6 +9,8 @@ public class BigTable
     
     private readonly IBiHashFunction _simpleHashFunction;
     private readonly KeyValuePair?[] _items;
+    
+    private readonly int _attempts = 13;
 
     public BigTable(IBiHashFunction simpleHashFunction)
     {
@@ -26,7 +28,7 @@ public class BigTable
             return;
         }
         
-        while (_items[index] is not null && attempt < 10000)
+        while (_items[index] is not null && attempt < _attempts)
         {
             index = _simpleHashFunction.Hash(index, ++attempt); //(index + 1) % 10000;
         }
@@ -57,7 +59,7 @@ public class BigTable
         int index = _simpleHashFunction.Hash(key, 0);
         int attempt = 0;
 
-        while (_items[index] is not null && attempt < 10000)
+        while (_items[index] is not null && attempt < _attempts)
         {
             if (_items[index]?.Key.Equals(key) == true)
             {
@@ -106,6 +108,6 @@ public class BigTable
             }
         }
 
-        return maxCluster;
+        return Math.Max(maxCluster, currentCluster);
     }
 }

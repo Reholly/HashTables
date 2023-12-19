@@ -1,6 +1,6 @@
 ﻿namespace HashTables.HashFunctions.BigTableHashFunctions;
 
-public class XxHashFunction(uint seed = 0) : IBiHashFunction
+public class XxHashFunction : IBiHashFunction
 {
     private const uint Prime1 = 2654435761U;
     private const uint Prime2 = 2246822519U;
@@ -8,6 +8,12 @@ public class XxHashFunction(uint seed = 0) : IBiHashFunction
     private const uint Prime4 = 668265263U;
     private const uint Prime5 = 374761393U;
 
+    private uint seed = 0;
+
+    public XxHashFunction(uint seed = 0)
+    {
+        this.seed = seed;
+    }
     public string Title => "Хэш-функция xxHash";
 
     public int Hash(int key, int attempt)

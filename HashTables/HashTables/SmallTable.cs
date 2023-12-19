@@ -20,6 +20,11 @@ public class SmallTable
     {
         int index = _simpleHashFunction.Hash(key);
 
+        if (Get(key) != null)
+        {
+            return;
+        }
+
         if (_buckets[index] is null)
             _buckets[index] = new Models.LinkedList<KeyValuePair>();
         /*if(Get(key) is null)

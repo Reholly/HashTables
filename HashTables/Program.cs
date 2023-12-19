@@ -11,7 +11,7 @@ while (true)
     Console.WriteLine("После этого проводится генерация элементов, которые позже вставляются в малую хэш-таблицу ");
     Console.WriteLine("и в большую. Затем получаются нужные замеры из задания лаборотарной работы.");
     
-    //try
+    try
     {
         Console.WriteLine("Введите число пар для малой хэш-таблицы: (1 <= 100000)");
         int smallCount = int.Parse(Console.ReadLine());
@@ -35,7 +35,7 @@ while (true)
         Console.ReadKey();
         Console.Clear();
     }
-    //catch (Exception)
+    catch (Exception)
     {
         Console.Clear();
         Console.WriteLine("Ошибка в преобразовании числа, программа начата заново.");
@@ -63,7 +63,7 @@ List<SmallTable> GetAllSmallTables(KeyValuePair[] pairs)
     crc32Table.AddRange(pairs);
     
 
-    return [divTable, mulTable, xorTable, quadraticTable, /*digitSumTable,*/ irrationalSinTable, crc32Table];
+    return new List<SmallTable> {divTable, mulTable, xorTable, quadraticTable, /*digitSumTable,*/ irrationalSinTable, crc32Table};
 }
 
 List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
@@ -82,7 +82,7 @@ List<BigTable> GetAllBigTables(KeyValuePair[] pairs)
     bigTableFibonacci.AddRange(pairs);
     bigTableXxHash.AddRange(pairs);
 
-    return [bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci, bigTableXxHash];
+    return new List<BigTable>{bigTableLinear, bigTableQuadratic, bigTableDoubleHash, bigTableXor, bigTableFibonacci, bigTableXxHash};
 }
 
 void PrintSmallTablesData(List<SmallTable> tables)

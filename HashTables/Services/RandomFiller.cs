@@ -7,9 +7,13 @@ public class RandomFiller
     public KeyValuePair[] RandomKeyValuePairs(int count, int from, int to)
     {
         KeyValuePair[] keyValuePairs = new KeyValuePair[count];
+        
         Random random = new Random();
+        
+        var keys = GenerateUniqueKeys(count);
+        
         for (int i = 0; i < count; i++)
-            keyValuePairs[i] = new KeyValuePair(random.Next(from, to), random.Next(from, to));
+            keyValuePairs[i] = new KeyValuePair(keys[i], random.Next(from, to));
 
         return keyValuePairs;
     }
